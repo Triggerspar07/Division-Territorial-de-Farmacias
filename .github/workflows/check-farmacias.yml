@@ -13,15 +13,13 @@ jobs:
       - name: Compare current farmacias with updated source map
         shell: python
         run: |
-          import json, re, urllib.request, unicodedata
+          import json, re, urllib.request, unicodedata, math
           from pathlib import Path
           html = Path('index.html').read_text(encoding='utf-8')
           m = re.search(r'const FARMACIAS = (\[.*?\]);\s*let currentDeptoIdx', html, re.S)
-          if not m: raise SystemExit('No se encontró FARMACIAS')
           current = json.loads(m.group(1))
           src_html = urllib.request.urlopen('https://raw.githubusercontent.com/Triggerspar07/Mapa-de-DoctorSV/main/index.html', timeout=30).read().decode('utf-8')
           m2 = re.search(r'const SUCURSALES_REALES = (\[.*?\]);', src_html, re.S)
-          if not m2: raise SystemExit('No se encontró SUCURSALES_REALES')
           src = json.loads(m2.group(1))
           src_f = [x for x in src if x.get('tipo') == 'farmacia']
           def norm(s):
@@ -35,6 +33,26 @@ jobs:
               x=sm[k]; lines.append('MISSING|'+str(x.get('nombre'))+'|'+str(x.get('cadena'))+'|'+str(x.get('direccion')))
           for k in sorted(set(cm)-set(sm)):
               x=cm[k]; lines.append('CURRENT_ONLY|'+str(x.get('nombre'))+'|'+str(x.get('cadena'))+'|'+str(x.get('direccion')))
+          fields=[('municipio','municipio'),('departamento','departamento'),('direccion','direccion'),('lat','lat'),('lon','lng')]
+          mism=[]
+          for k in sorted(set(cm)&set(sm)):
+              a,b=cm[k],sm[k]
+              dif=[]
+              for dst,src_key in fields:
+                  av=a.get(dst); bv=b.get(src_key)
+                  if dst in ('lat','lon'):
+                      try:
+                          if av is None or bv is None or not math.isclose(float(av),float(bv),rel_tol=0,abs_tol=1e-8): dif.append(f'{dst}:{av}!={bv}')
+                      except Exception:
+                          if str(av)!=str(bv): dif.append(f'{dst}:{av}!={bv}')
+                  elif norm(av)!=norm(bv): dif.append(f'{dst}:{av}!={bv}')
+              src_inact = bool(b.get('activo') is False)
+              dst_inact = str(a.get('estatus','')).upper() != 'ACTIVO'
+              if src_inact != dst_inact: dif.append(f'estado:{a.get("estatus")}!=activo={not src_inact}')
+              if dif: mism.append((a,b,dif))
+          lines.append(f'FIELD_MISMATCHES={len(mism)}')
+          for a,b,dif in mism:
+              lines.append('MISMATCH|'+str(a.get('nombre'))+'|'+ ';'.join(dif))
           Path('sync-check.txt').write_text('\n'.join(lines)+'\n',encoding='utf-8')
       - name: Save report
         shell: bash
@@ -42,5 +60,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add sync-check.txt
-          git commit -m "Add pharmacy sync report" || true
+          git commit -m "Update pharmacy sync report" || true
           git push || true
