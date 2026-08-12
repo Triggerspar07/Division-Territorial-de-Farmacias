@@ -1,0 +1,50 @@
+name: Check farmacias sync
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare current farmacias with updated source map
+        shell: python
+        run: |
+          import json, re, urllib.request, unicodedata
+          from pathlib import Path
+          html = Path('index.html').read_text(encoding='utf-8')
+          m = re.search(r'const FARMACIAS = (\[.*?\]);\s*let currentDeptoIdx', html, re.S)
+          if not m:
+              raise SystemExit('No se encontró FARMACIAS')
+          current = json.loads(m.group(1))
+          src_html = urllib.request.urlopen('https://raw.githubusercontent.com/Triggerspar07/Mapa-de-DoctorSV/main/index.html', timeout=30).read().decode('utf-8')
+          m2 = re.search(r'const SUCURSALES_REALES = (\[.*?\]);', src_html, re.S)
+          if not m2:
+              raise SystemExit('No se encontró SUCURSALES_REALES')
+          src = json.loads(m2.group(1))
+          src_f = [x for x in src if x.get('tipo') == 'farmacia']
+          ck = {str(x.get('codigo','')).strip(): x for x in current}
+          sk = {str(x.get('id','')).strip(): x for x in src_f}
+          # La relación codigo->id no es directa; comparar por nombre+cadena+dirección normalizados.
+          def norm(s):
+              s = unicodedata.normalize('NFD', str(s or ''))
+              s = ''.join(ch for ch in s if unicodedata.category(ch) != 'Mn')
+              return re.sub(r'\s+', ' ', s).strip().lower()
+          def key(x):
+              return (norm(x.get('nombre')), norm(x.get('cadena')), norm(x.get('direccion')))
+          cm = {key(x): x for x in current}
+          sm = {key(x): x for x in src_f}
+          print('CURRENT_FARMACIAS=', len(current))
+          print('SOURCE_FARMACIAS=', len(src_f))
+          print('MATCHES=', len(set(cm) & set(sm)))
+          print('MISSING_IN_CURRENT=', len(set(sm)-set(cm)))
+          for k in sorted(set(sm)-set(cm)):
+              x = sm[k]
+              print('MISSING:', x.get('nombre'), '|', x.get('cadena'), '|', x.get('direccion'))
+          print('CURRENT_NOT_IN_SOURCE=', len(set(cm)-set(sm)))
+          for k in sorted(set(cm)-set(sm)):
+              x = cm[k]
+              print('CURRENT_ONLY:', x.get('nombre'), '|', x.get('cadena'), '|', x.get('direccion'))
