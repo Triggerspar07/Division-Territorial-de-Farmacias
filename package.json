@@ -1,0 +1,7 @@
+{
+  "name": "division-territorial-farmacias",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test", "dev": "node scripts/serve.js" },
+  "engines": { "node": ">=20" }
+}
