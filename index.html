@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Explora departamentos, municipios y distritos de El Salvador y consulta direcciones, horarios y servicios de las sucursales de farmacia.">
   <meta name="theme-color" content="#102d51">
-  <title>Atlas de farmacias · División Territorial de El Salvador</title>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <title>Atlas · División Territorial</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=atlas-pilares-20261104">
   <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/fonts/atlas-wordmark.css">
   <link rel="stylesheet" href="assets/vendor/leaflet.css">
-  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/styles.css?v=atlas-pilares-20261104">
   <script>
     try { document.documentElement.dataset.theme=localStorage.getItem('farmacias-theme')==='dark'?'dark':'light'; } catch {}
   </script>
@@ -17,7 +18,7 @@
 <body>
   <a href="#mainContent" class="skip-link">Saltar al contenido</a>
   <header class="app-header">
-    <a class="brand" href="./" aria-label="División Territorial de Farmacias, inicio"><span class="brand-symbol"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#map-pinned"></use></svg></span><span>División Territorial<span class="brand-subtitle">Farmacias · El Salvador</span></span></a>
+    <a class="brand" href="./" aria-label="Atlas, División Territorial de Farmacias, inicio"><span class="brand-symbol"><img class="brand-mark" src="assets/atlas-pilares.svg" alt="" aria-hidden="true" width="55" height="58"></span><span><span class="brand-name">Atlas</span><span class="brand-subtitle">División Territorial</span></span></a>
     <div class="global-search" id="globalSearch">
       <label for="globalSearchInput" class="sr-only">Buscar departamento, municipio, distrito o farmacia</label>
       <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#search"></use></svg>
@@ -25,7 +26,7 @@
       <span class="search-shortcut" aria-hidden="true">Buscar</span>
       <div id="globalSearchResults" class="search-results" role="listbox" aria-label="Resultados de búsqueda" hidden></div>
     </div>
-    <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Activar Territorio nocturno"><svg class="icon theme-moon" aria-hidden="true"><use href="assets/icons.svg#moon"></use></svg><svg class="icon theme-sun" aria-hidden="true"><use href="assets/icons.svg#sun"></use></svg><span id="themeLabel">Territorio nocturno</span></button>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Activar modo oscuro"><svg class="icon theme-moon" aria-hidden="true"><use href="assets/icons.svg#moon"></use></svg><svg class="icon theme-sun" aria-hidden="true"><use href="assets/icons.svg#sun"></use></svg><span id="themeLabel">Modo oscuro</span></button>
   </header>
   <div class="app-shell">
     <aside class="territory-sidebar" aria-label="Navegación territorial">
@@ -54,12 +55,12 @@
         </section>
         <aside class="map-column" aria-label="Mapa de sucursales"><section class="map-panel"><div class="map-heading"><h2><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#map"></use></svg>Ubicación de sucursales</h2><button id="fitMap" class="icon-button" type="button" aria-label="Ver todas las sucursales de la selección" title="Ajustar mapa"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#expand"></use></svg></button></div><div class="branch-map" id="branchMap" role="region" aria-label="Mapa interactivo de sucursales de farmacia"></div><p id="mapMessage" class="map-message" role="status" hidden></p><div class="map-legend"><span><i class="map-key map-key-active"></i>Activa</span><span><i class="map-key map-key-inactive"></i>Inactiva / temporal</span><span id="mappedCount"></span></div><div id="selectedBranch" class="selected-branch" hidden></div><div id="territoryContext" class="territory-context"></div></section><p class="map-disclaimer">Los puntos representan coordenadas registradas de sucursales, no límites administrativos. Consulta la fuente de ubicación en cada ficha.</p><div class="help-note"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#map-pin"></use></svg><p>Selecciona una sucursal en el mapa o pulsa <strong>Ver en el mapa</strong> en su ficha.</p></div></aside>
       </div>
-      <footer class="app-footer"><span>División territorial de El Salvador</span><span>14 departamentos · 44 municipios · 262 distritos</span><a href="https://github.com/Triggerspar07/Division-Territorial-de-Farmacias" target="_blank" rel="noopener noreferrer">Ver proyecto<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#arrow-up-right"></use></svg></a></footer>
+      <footer class="app-footer"><span>Atlas · División Territorial</span><span>14 departamentos · 44 municipios · 262 distritos</span><a href="https://github.com/Triggerspar07/Division-Territorial-de-Farmacias" target="_blank" rel="noopener noreferrer">Ver proyecto<svg class="icon" aria-hidden="true"><use href="assets/icons.svg#arrow-up-right"></use></svg></a></footer>
     </main>
   </div>
   <div class="sr-only" id="announcements" role="status" aria-live="polite"></div>
   <noscript><p class="noscript">Activa JavaScript para consultar las sucursales y el mapa territorial.</p></noscript>
   <script src="assets/vendor/leaflet.js"></script>
-  <script type="module" src="assets/app.js"></script>
+  <script type="module" src="assets/app.js?v=atlas-pilares-20261104"></script>
 </body>
 </html>

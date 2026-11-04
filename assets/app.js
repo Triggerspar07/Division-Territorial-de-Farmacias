@@ -196,10 +196,10 @@ function updateSearchSelection(){
 function setTheme(theme,event){
   clearTimeout(themeTimer);document.documentElement.classList.add('theme-transition');document.documentElement.dataset.theme=theme;
   try{localStorage.setItem('farmacias-theme',theme);}catch{}
-  const dark=theme==='dark';$('themeToggle').setAttribute('aria-pressed',String(dark));$('themeToggle').setAttribute('aria-label',dark?'Activar Atlas claro':'Activar Territorio nocturno');$('themeLabel').textContent=dark?'Atlas claro':'Territorio nocturno';
+  const dark=theme==='dark';$('themeToggle').setAttribute('aria-pressed',String(dark));$('themeToggle').setAttribute('aria-label',dark?'Activar modo claro':'Activar modo oscuro');$('themeLabel').textContent=dark?'Modo claro':'Modo oscuro';
   map.refreshTheme();
   themeTimer=setTimeout(()=>document.documentElement.classList.remove('theme-transition'),300);
-  if(event)announce(dark?'Territorio nocturno activado':'Atlas claro activado');
+  if(event)announce(dark?'Modo oscuro activado':'Modo claro activado');
 }
 
 $('departmentNav').addEventListener('click',event=>{const button=event.target.closest('[data-department]');if(button)setTerritory({department:button.dataset.department},event);});

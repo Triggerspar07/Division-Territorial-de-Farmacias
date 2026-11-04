@@ -1,6 +1,6 @@
-# Atlas / Territorio nocturno
+# Atlas · División Territorial
 
-El usuario eligió las propuestas Atlas y Territorio nocturno. La aplicación utiliza la organización territorial de Atlas y permite alternar entre la apariencia clara institucional y la nocturna con acento verde agua.
+La marca aprobada es Atlas, con el descriptor División Territorial y el símbolo Los Pilares. El usuario corrigió expresamente la elección anterior de El Firmamento. La aplicación conserva la organización territorial y permite alternar entre Modo claro y Modo oscuro.
 
 ## Composición
 
@@ -13,6 +13,7 @@ Cabecera con búsqueda global y selector de tema; navegación lateral por depart
 - Fondo azul oscuro, superficies azul petróleo y selección verde agua en Territorio nocturno.
 - Variables de color en assets/styles.css; estados de actividad acompañados de texto.
 - Iconografía Lucide local y coherente; información en bloques ordenados, sin adornos que compitan con el mapa.
+- Marca Los Pilares: dos columnas clásicas, bóveda celeste verde agua y tres estrellas. SVG nítido en assets/atlas-pilares.svg, con versión de favicon sobre fondo azul. Marfil y dorado discreto complementan el verde agua de la marca. Cormorant Garamond para Atlas; DM Sans para su descriptor. Todas las fuentes se sirven localmente.
 
 ## Movimiento
 

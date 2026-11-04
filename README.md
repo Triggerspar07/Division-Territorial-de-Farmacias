@@ -1,6 +1,6 @@
-# División Territorial de Farmacias
+# Atlas · División Territorial
 
-Explorador de los departamentos, municipios y distritos de El Salvador y sus sucursales de farmacia. Rediseño Atlas con apariencia clara y Territorio nocturno, selección territorial, búsqueda, filtros y mapa interactivo.
+Explorador de los departamentos, municipios y distritos de El Salvador y sus sucursales de farmacia. Identidad Atlas con el logo Los Pilares, modo claro y modo oscuro, selección territorial, búsqueda, filtros y mapa interactivo.
 
 [Sitio del proyecto](https://triggerspar07.github.io/Division-Territorial-de-Farmacias/) · [Repositorio Mapa DoctorSV](https://github.com/Triggerspar07/Mapa-de-DoctorSV)
 
@@ -41,6 +41,6 @@ El proyecto sigue siendo estático y compatible con GitHub Pages, sin compilaci�
 
 ## Recursos
 
-Leaflet 1.9.4, un sprite de Lucide 0.468.0 y las fuentes Manrope y DM Sans se sirven localmente. Sus licencias están en `assets/vendor/` y `assets/fonts/`. `scripts/prepare-assets.js` permite volver a preparar el sprite y las fuentes desde sus fuentes públicas; no es necesario ejecutarlo para abrir la aplicación.
+Leaflet 1.9.4, un sprite de Lucide 0.468.0 y las fuentes Manrope, DM Sans y Cormorant Garamond se sirven localmente. Sus licencias están en `assets/vendor/` y `assets/fonts/`. `scripts/prepare-assets.js` permite volver a preparar el sprite y las fuentes base desde sus fuentes públicas; no es necesario ejecutarlo para abrir la aplicación. La marca elegida, Los Pilares, está en `assets/atlas-pilares.svg`; el favicon utiliza el mismo símbolo. El selector de apariencia se presenta como Modo oscuro / Modo claro.
 
 El mapa base solicita teselas a OpenStreetMap y mantiene su atribución. Necesita conexión; si falla, las fichas y los filtros continúan disponibles. La apariencia se guarda únicamente en el almacenamiento local del navegador, cuando está disponible. El movimiento se reduce según la preferencia del dispositivo.

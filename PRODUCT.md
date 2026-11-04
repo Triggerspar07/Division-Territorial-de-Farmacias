@@ -28,6 +28,8 @@ Consultar la división territorial de El Salvador y las sucursales de farmacia a
 
 ## Product Principles
 
+- Marca aprobada el 4 de noviembre de 2026: Atlas · División Territorial, sin SV. Logo elegido definitivamente: Los Pilares. El selector de apariencia se llama Modo oscuro / Modo claro.
+
 - Preservar los datos al cambiar su presentación.
 - Hacer fácil encontrar un territorio y consultar sus sucursales.
 - Permitir al usuario elegir el diseño antes de reconstruir la página completa.

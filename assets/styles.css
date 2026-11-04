@@ -33,6 +33,13 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important}.button,.icon-button,.theme-toggle,.department-button,.district-chip,.search-result{transition:background-color 100ms ease,color 100ms ease;transform:none!important}.territory-browser>summary>.icon,.location-source summary>.icon:last-child{transition:none}.theme-transition body,.theme-transition .app-header,.theme-transition .territory-sidebar,.theme-transition .branch-card,.theme-transition .map-panel,.theme-transition select{transition-duration:100ms}}
 
 /* Reading sizes stay legible in dense and narrow layouts. */
+.app-header{min-height:96px}
+.territory-sidebar{top:96px;max-height:calc(100dvh - 96px)}
+.brand-symbol{width:55px;height:58px;border:0;border-radius:0;background:transparent}
+.brand-mark{display:block;width:100%;height:100%;object-fit:contain}
+.brand-name{display:block;font:600 37px/.98 'Cormorant Garamond',Georgia,serif;letter-spacing:-.025em;color:#f5f4ed}
+.brand .brand-subtitle{margin-top:5px;font-size:11px;line-height:1.4;letter-spacing:.15px}
+@media(max-width:760px){.brand-symbol{width:47px;height:52px}.brand-name{font-size:35px}.brand{gap:11px}}
 .selected-branch-actions .doctorsv-link{width:100%;min-height:37px;font-size:11px}
 .branch-detail{font-size:13px}.branch-schedule dl{font-size:12px}.branch-services>div,.branch-services dd{font-size:11px}.location-source{font-size:11px}.leaflet-control-attribution{font-size:10px!important}
 @media(max-width:540px){.territory-controls{grid-template-columns:1fr}.territory-controls label{grid-column:1/-1}.theme-toggle{width:44px;min-height:44px}}

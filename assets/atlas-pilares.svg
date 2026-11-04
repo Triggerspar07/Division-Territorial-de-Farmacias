@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 268" fill="none">
+  <title>Atlas · Los Pilares</title>
+  <path fill="#94ded1" d="M10 112C21 48 65 6 120 6s99 42 110 106C209 58 169 23 120 23S31 58 10 112Z"/>
+  <path fill="#c8af7a" d="m120 42 6 20 18 6-18 6-6 20-6-20-18-6 18-6Z"/>
+  <path fill="#f5f4ed" d="m69 69 3 10 10 3-10 3-3 10-3-10-10-3 10-3Zm102 0 3 10 10 3-10 3-3 10-3-10-10-3 10-3Z"/>
+  <g fill="#f5f4ed">
+    <path d="M10 114h72v9H10zm6 14h60l-5 8H21zm15 13h30l17 95H14zm-19 100h68v9H12zm-7 13h82v9H5Z"/>
+    <path d="M158 114h72v9h-72zm6 14h60l-5 8h-50zm15 13h30l17 95h-64zm-19 100h68v9h-68zm-7 13h82v9h-82Z"/>
+  </g>
+  <g stroke="#102d51" stroke-linecap="square" stroke-width="4">
+    <path d="m35 151-12 74m23-74v74m11-74 12 74m114-74-12 74m23-74v74m11-74 12 74"/>
+  </g>
+</svg>
