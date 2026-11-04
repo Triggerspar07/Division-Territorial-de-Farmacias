@@ -41,6 +41,6 @@ El proyecto sigue siendo estático y compatible con GitHub Pages, sin compilaci�
 
 ## Recursos
 
-Leaflet 1.9.4, un sprite de Lucide 0.468.0 y las fuentes Manrope, DM Sans y Cormorant Garamond se sirven localmente. Sus licencias están en `assets/vendor/` y `assets/fonts/`. `scripts/prepare-assets.js` permite volver a preparar el sprite y las fuentes base desde sus fuentes públicas; no es necesario ejecutarlo para abrir la aplicación. La marca elegida, Los Pilares, está en `assets/atlas-pilares.svg`; el favicon utiliza el mismo símbolo. El selector de apariencia se presenta como Modo oscuro / Modo claro.
+Leaflet 1.9.4, un sprite de Lucide 0.468.0 y las fuentes Manrope, DM Sans y Cormorant Garamond se sirven localmente. Sus licencias están en `assets/vendor/` y `assets/fonts/`. `scripts/prepare-assets.js` permite volver a preparar el sprite y las fuentes base desde sus fuentes públicas; no es necesario ejecutarlo para abrir la aplicación. La marca elegida, Los Pilares, está en `assets/atlas-pilares.svg`; el favicon utiliza el mismo símbolo. Los modos de apariencia son Atlas — modo claro y Nyx — modo oscuro.
 
 El mapa base solicita teselas a OpenStreetMap y mantiene su atribución. Necesita conexión; si falla, las fichas y los filtros continúan disponibles. La apariencia se guarda únicamente en el almacenamiento local del navegador, cuando está disponible. El movimiento se reduce según la preferencia del dispositivo.

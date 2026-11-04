@@ -196,10 +196,10 @@ function updateSearchSelection(){
 function setTheme(theme,event){
   clearTimeout(themeTimer);document.documentElement.classList.add('theme-transition');document.documentElement.dataset.theme=theme;
   try{localStorage.setItem('farmacias-theme',theme);}catch{}
-  const dark=theme==='dark';$('themeToggle').setAttribute('aria-pressed',String(dark));$('themeToggle').setAttribute('aria-label',dark?'Activar modo claro':'Activar modo oscuro');$('themeLabel').textContent=dark?'Modo claro':'Modo oscuro';
+  const dark=theme==='dark',action=dark?'Activar Atlas, modo claro':'Activar Nyx, modo oscuro';$('themeToggle').setAttribute('aria-pressed',String(dark));$('themeToggle').setAttribute('aria-label',action);$('themeToggle').title=action;$('themeLabel').textContent=dark?'Atlas — modo claro':'Nyx — modo oscuro';
   map.refreshTheme();
   themeTimer=setTimeout(()=>document.documentElement.classList.remove('theme-transition'),300);
-  if(event)announce(dark?'Modo oscuro activado':'Modo claro activado');
+  if(event)announce(dark?'Nyx, modo oscuro, activado':'Atlas, modo claro, activado');
 }
 
 $('departmentNav').addEventListener('click',event=>{const button=event.target.closest('[data-department]');if(button)setTerritory({department:button.dataset.department},event);});

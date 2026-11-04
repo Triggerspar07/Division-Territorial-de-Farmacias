@@ -1,6 +1,6 @@
 # Atlas · División Territorial
 
-La marca aprobada es Atlas, con el descriptor División Territorial y el símbolo Los Pilares. El usuario corrigió expresamente la elección anterior de El Firmamento. La aplicación conserva la organización territorial y permite alternar entre Modo claro y Modo oscuro.
+La marca aprobada es Atlas, con el descriptor División Territorial y el símbolo Los Pilares. El usuario corrigió expresamente la elección anterior de El Firmamento. La aplicación conserva la organización territorial y permite alternar entre Atlas — modo claro y Nyx — modo oscuro. El botón muestra el nombre del modo de destino; el texto accesible y la ayuda también indican claro u oscuro.
 
 ## Composición
 
