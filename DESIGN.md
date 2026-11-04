@@ -20,4 +20,4 @@ Cambios de tema con transiciones CSS de 240 ms; realce de selección y entrada b
 
 ## Alcance actual
 
-La conexión de una sucursal específica al otro proyecto Mapa DoctorSV fue aplazada por el usuario. Se conserva el botón Ver en el mapa que selecciona el punto aquí. El enlace secundario Proyecto Mapa DoctorSV abre el repositorio existente. No afirmar que ese proyecto acepta enlaces directos por sucursal.
+La acción Ver en DoctorSV del panel de sucursal seleccionada abre en otra pestaña el mapa DoctorSV mediante código y nombre. Se conserva el botón Ver en el mapa que selecciona el punto aquí, la ficha local y el enlace a Google Maps. DoctorSV resuelve la identidad antes de centrar su punto; un cambio de nombre o código ambiguo muestra un aviso en lugar de abrir una sucursal diferente.

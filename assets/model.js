@@ -2,6 +2,15 @@ export function normalize(value) {
   return String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('es').trim();
 }
 
+export function doctorSVUrl(branch){
+  const code=String(branch.codigo??'').trim();
+  if(!/^[A-Za-z0-9_-]{1,80}$/.test(code))return null;
+  const url=new URL('https://triggerspar07.github.io/Mapa-de-DoctorSV/');
+  url.searchParams.set('centro','farmacia:'+code);
+  if(branch.nombre)url.searchParams.set('nombre',branch.nombre);
+  return url.href;
+}
+
 export function selectBranches(rows, filters = {}) {
   const same = (a,b) => normalize(a) === normalize(b);
   return rows.filter(row =>

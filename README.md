@@ -31,7 +31,7 @@ git diff --check
 - Cada ficha conserva código, nombre, cadena, dirección, teléfono, coordenadas, estado, fuente de ubicación, horarios y servicios.
 - Los estados de coordenadas y estimaciones proceden de los registros existentes. Este rediseño no certifica nuevas ubicaciones ni modifica los datos.
 - La actualización mediante un nuevo JSON está pendiente de su entrega.
-- El botón **Ver en el mapa** conserva el mapa local y su detalle. La integración por sucursal con Mapa DoctorSV fue aplazada.
+- El botón **Ver en el mapa** conserva el mapa local y su detalle. El panel de sucursal seleccionada incluye **Ver en DoctorSV**: abre en otra pestaña la farmacia por código y nombre, usando la ubicación registrada en DoctorSV. No se transfieren coordenadas heredadas ni se modifica la información de los centros.
 
 ## Archivos
 

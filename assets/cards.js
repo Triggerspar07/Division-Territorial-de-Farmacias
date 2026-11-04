@@ -1,7 +1,12 @@
-import { coordinates,escapeHtml as e,formatSchedule,phoneLink,readableName,serviceLabel,sourceInfo,statusName,normalize } from './model.js';
+import { coordinates,escapeHtml as e,formatSchedule,phoneLink,readableName,serviceLabel,sourceInfo,statusName,normalize,doctorSVUrl } from './model.js';
 
 export function icon(name, className='') {
   return `<svg class="icon ${className}" aria-hidden="true"><use href="assets/icons.svg#${name}"></use></svg>`;
+}
+
+export function selectedBranchActions(branch){
+  const point=coordinates(branch),doctorSV=doctorSVUrl(branch);
+  return `<div class="selected-branch-actions"><button class="button button-primary" type="button" id="showSelectedCard">Ver ficha completa${icon('arrow-right')}</button>${point?`<a class="button button-secondary" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&amp;query=${point.join(',')}">Abrir ubicación${icon('arrow-up-right')}</a>`:''}${doctorSV?`<a class="button button-secondary doctorsv-link" target="_blank" rel="noopener noreferrer" href="${e(doctorSV)}" aria-label="Ver ${e(readableName(branch.nombre))} en DoctorSV, abre en otra pestaña">Ver en DoctorSV${icon('arrow-up-right')}</a>`:''}</div>`;
 }
 
 export function branchCard(branch,index) {

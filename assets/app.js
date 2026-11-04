@@ -1,6 +1,6 @@
 import { TERRITORIES,BRANCHES } from './data.js';
 import { selectBranches,searchIndex,searchEntries,normalize,readableName,escapeHtml as e,coordinates,statusName } from './model.js';
-import { branchCard,icon } from './cards.js';
+import { branchCard,icon,selectedBranchActions } from './cards.js';
 import { createBranchMap } from './map.js';
 
 const $=id=>document.getElementById(id);
@@ -148,7 +148,7 @@ function selectBranch(id,{showCard=false,scrollMap=true,event}={}){
   if(showCard && position>=state.limit){state.limit=Math.ceil((position+1)/12)*12;renderCards();}
   document.querySelectorAll('.branch-card.is-selected').forEach(card=>card.classList.remove('is-selected'));
   const card=$('branch-'+id);card?.classList.add('is-selected');
-  $('selectedBranch').innerHTML=`<div class="selected-branch-top"><span>Sucursal seleccionada</span><span>${e(statusName(branch.estatus))}</span></div><h3>${e(readableName(branch.nombre))}</h3><p>${e(branch.codigo||'Sin código')} · ${e(branch.distrito||'Sin distrito')}</p><div class="selected-branch-actions"><button class="button button-primary" type="button" id="showSelectedCard">Ver ficha completa${icon('arrow-right')}</button>${coordinates(branch)?`<a class="button button-secondary" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&amp;query=${coordinates(branch).join(',')}">Abrir ubicación${icon('arrow-up-right')}</a>`:''}</div>`;
+  $('selectedBranch').innerHTML=`<div class="selected-branch-top"><span>Sucursal seleccionada</span><span>${e(statusName(branch.estatus))}</span></div><h3>${e(readableName(branch.nombre))}</h3><p>${e(branch.codigo||'Sin código')} · ${e(branch.distrito||'Sin distrito')}</p>${selectedBranchActions(branch)}`;
   $('selectedBranch').hidden=false;
   $('showSelectedCard').addEventListener('click',ev=>selectBranch(id,{showCard:true,scrollMap:false,event:ev}));
   map.focus(id,{openPopup:!showCard});
