@@ -44,3 +44,9 @@
 .branch-detail{font-size:13px}.branch-schedule dl{font-size:12px}.branch-services>div,.branch-services dd{font-size:11px}.location-source{font-size:11px}.leaflet-control-attribution{font-size:10px!important}
 @media(max-width:540px){.territory-controls{grid-template-columns:1fr}.territory-controls label{grid-column:1/-1}.theme-toggle{width:44px;min-height:44px}}
 @media(pointer:coarse){.icon-button{width:44px;height:44px}.district-chip{min-height:44px}.department-button{min-height:44px}}
+
+/* Keep the territorial details reachable at normal zoom on short desktop windows. */
+@media(min-width:991px){
+  .map-column{max-height:calc(100dvh - 130px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--line) transparent;scroll-padding-block:12px}
+  .branch-map{height:clamp(160px,calc(100dvh - 590px),340px)}
+}
