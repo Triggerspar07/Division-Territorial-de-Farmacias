@@ -92,3 +92,14 @@ export function phoneLink(value) {
   if(digits.length===11 && digits.startsWith('503')) return 'tel:+'+digits;
   return null;
 }
+
+// District names may repeat across departments; resolve within the recorded department.
+export function branchTerritory(territories,branch){
+  const department=territories.flatMap(zone=>zone.departamentos).find(dept=>normalize(dept.nombre)===normalize(branch.departamento));
+  const municipality=department?.municipios.find(mun=>mun.distritos.some(district=>normalize(district)===normalize(branch.distrito)));
+  return {
+    department:department?.nombre||branch.departamento||'Sin dato',
+    municipality:municipality?.nombre||branch.municipio||'Sin dato',
+    district:municipality?.distritos.find(district=>normalize(district)===normalize(branch.distrito))||branch.distrito||'Sin dato'
+  };
+}

@@ -1,5 +1,5 @@
 import { TERRITORIES,BRANCHES } from './data.js';
-import { selectBranches,searchIndex,searchEntries,normalize,readableName,escapeHtml as e,coordinates,statusName } from './model.js';
+import { selectBranches,searchIndex,searchEntries,normalize,readableName,escapeHtml as e,coordinates,statusName,branchTerritory } from './model.js?v=atlas-territorio-20261105';
 import { branchCard,icon,selectedBranchActions } from './cards.js';
 import { createBranchMap } from './map.js';
 
@@ -79,7 +79,16 @@ function renderTerritory(){
       renderedDepartment=dept.nombre;
     }else $('territoryGroups').querySelectorAll('[data-district]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.district===state.district)));
   }
-  $('territoryContext').innerHTML=`<div>Departamento<strong>${e(state.department||'Todos los departamentos')}</strong></div><div>Municipio<strong>${e(state.municipality||'Todos los municipios')}</strong></div><div class="wide">Distrito<strong>${e(state.district||'Todos los distritos')}</strong></div>`;
+  renderTerritoryContext();
+}
+
+function renderTerritoryContext(){
+  const branch=state.selected===null?null:BRANCHES[state.selected];
+  const territory=branch?branchTerritory(TERRITORIES,branch):null;
+  const department=territory?territory.department:state.department||'Todos los departamentos';
+  const municipality=territory?territory.municipality:state.municipality||'Todos los municipios';
+  const district=territory?territory.district:state.district||'Todos los distritos';
+  $('territoryContext').innerHTML=`<div>Departamento<strong>${e(department)}</strong></div><div>Municipio<strong>${e(municipality)}</strong></div><div class="wide">Distrito<strong>${e(district)}</strong></div>`;
 }
 
 function scopeFilters(){
@@ -117,7 +126,7 @@ function render(){
 
 function updateResults(){
   results=selectBranches(BRANCHES,{...scopeFilters(),chain:state.chain,status:state.status,service:state.service}).sort((a,b)=>a.cadena.localeCompare(b.cadena,'es')||a.nombre.localeCompare(b.nombre,'es'));
-  state.selected=null;$('selectedBranch').hidden=true;
+  state.selected=null;$('selectedBranch').hidden=true;renderTerritoryContext();
   const active=results.filter(row=>normalize(row.estatus)==='activo').length;
   $('resultSummary').textContent=`${formatCount(results.length,'sucursal','sucursales')} · ${formatCount(active,'activa','activas')} · ${results.length-active} inactivas o temporales`;
   renderCards();
@@ -144,6 +153,7 @@ function selectBranch(id,{showCard=false,scrollMap=true,event}={}){
     if(!results.includes(branch)) setTerritory({},event);
   }
   state.selected=id;
+  renderTerritoryContext();
   const position=results.indexOf(branch);
   if(showCard && position>=state.limit){state.limit=Math.ceil((position+1)/12)*12;renderCards();}
   document.querySelectorAll('.branch-card.is-selected').forEach(card=>card.classList.remove('is-selected'));
