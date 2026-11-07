@@ -22,15 +22,15 @@ node scripts/verify-data.js
 git diff --check
 ```
 
-`verify-data.js` compara todos los valores de los datos extraídos con el commit original `83b6e371d42c59a9358603e7a2fd0b0e58f67e25`; requiere el historial Git de ese commit.
+`verify-data.js` verifica el catálogo territorial contra el commit original `83b6e371d42c59a9358603e7a2fd0b0e58f67e25` y comprueba la unicidad de los códigos y los casos corregidos. Requiere el historial Git de ese commit.
 
 ## Datos y alcance
 
-- 443 sucursales preservadas: 407 activas, 32 inactivas y 4 inactivas temporales. Todas se incluyen por defecto.
+- 446 sucursales con códigos únicos. La columna «Código» de la hoja Farmacias coincide con el JSON del Roll Out del 6 de noviembre de 2026. Atlas usa el código SRS corregido E10F0420 para Brasil VIII y conserva como pendientes los códigos de identidad sin conciliar.
+- Atlas muestra 372 activas, 49 inactivas temporales y 25 inactivas. El filtro de inactivas incluye las retiradas del Roll Out y Ramblas San Miguel, cuyo registro SRS está suspendido.
 - 14 departamentos, 44 municipios y 262 distritos. Los filtros territoriales distinguen departamentos para no mezclar distritos homónimos.
 - Cada ficha conserva código, nombre, cadena, dirección, teléfono, coordenadas, estado, fuente de ubicación, horarios y servicios.
-- Los estados de coordenadas y estimaciones proceden de los registros existentes. Este rediseño no certifica nuevas ubicaciones ni modifica los datos.
-- La actualización mediante un nuevo JSON está pendiente de su entrega.
+- Las fichas distinguen las coordenadas heredadas, las del Roll Out y las que requieren confirmación. La Buena 53, Ramblas San Miguel y UNO Bypass Usulután siguen en el directorio mientras se confirma su punto.
 - El botón **Ver en el mapa** conserva el mapa local y su detalle. El panel de sucursal seleccionada incluye **Ver en DoctorSV**: abre en otra pestaña la farmacia por código y nombre, usando la ubicación registrada en DoctorSV. No se transfieren coordenadas heredadas ni se modifica la información de los centros.
 
 ## Archivos

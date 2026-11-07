@@ -71,6 +71,8 @@ export function statusName(value) {
 
 export function sourceInfo(branch) {
   const source=branch.fuente;
+  if(source==='pendiente_verificacion') return {tone:'estimated',label:'Ubicación pendiente de verificar',detail:branch.nota_ubicacion};
+  if(source==='roll_out') return {tone:'recorded',label:'Coordenadas del Roll Out',detail:'Punto de referencia del Roll Out del 6 de noviembre de 2026.'};
   if(source==='estimado_ia') {
     const confidence=({alta:'Confianza alta',media:'Verificar ubicación',estimado_referencia:'Por referencia'})[branch.confianza_estimado]||'Sin confianza indicada';
     return {tone:'estimated',label:'Ubicación estimada',detail:confidence+'. Estimación heredada; requiere confirmación.'};

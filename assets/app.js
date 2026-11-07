@@ -1,6 +1,6 @@
-import { TERRITORIES,BRANCHES } from './data.js';
-import { selectBranches,searchIndex,searchEntries,normalize,readableName,escapeHtml as e,coordinates,statusName,branchTerritory } from './model.js?v=atlas-territorio-20261105';
-import { branchCard,icon,selectedBranchActions } from './cards.js';
+import { TERRITORIES,BRANCHES } from './data.js?v=atlas-rollout-20261106';
+import { selectBranches,searchIndex,searchEntries,normalize,readableName,escapeHtml as e,coordinates,statusName,branchTerritory } from './model.js?v=atlas-rollout-20261106';
+import { branchCard,icon,selectedBranchActions } from './cards.js?v=atlas-rollout-20261106';
 import { createBranchMap } from './map.js';
 
 const $=id=>document.getElementById(id);

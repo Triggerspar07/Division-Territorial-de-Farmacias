@@ -1,4 +1,4 @@
-import { coordinates,escapeHtml as e,formatSchedule,phoneLink,readableName,serviceLabel,sourceInfo,statusName,normalize,doctorSVUrl } from './model.js';
+import { coordinates,escapeHtml as e,formatSchedule,phoneLink,readableName,serviceLabel,sourceInfo,statusName,normalize,doctorSVUrl } from './model.js?v=atlas-rollout-20261106';
 
 export function icon(name, className='') {
   return `<svg class="icon ${className}" aria-hidden="true"><use href="assets/icons.svg#${name}"></use></svg>`;
@@ -29,7 +29,7 @@ export function branchCard(branch,index) {
       <dt>Domingo</dt><dd>${e(formatSchedule(branch.horario_dom)).replaceAll(' / ','<br>')}</dd>
     </dl></section>
     <dl class="branch-services">${services.map(([label,key,iconName])=>{const value=serviceLabel(branch[key]);return `<div><dt>${icon(iconName)}${label}</dt><dd class="service-${value==='Sí'?'yes':value==='No'?'no':'unknown'}">${value==='Sí'?icon('check'):''}${value}</dd></div>`;}).join('')}</dl>
-    <details class="location-source"><summary>${icon(source.tone==='estimated'?'triangle-alert':'shield-check')}<span>${e(source.label)}</span>${icon('chevron-down')}</summary><p>${e(source.detail)}</p><p class="record-location">Ubicación registrada: ${e([branch.distrito,branch.municipio,branch.departamento].filter(Boolean).join(' · '))}</p></details>
+    <details class="location-source"${!point && branch.fuente==='pendiente_verificacion'?' open':''}><summary>${icon(source.tone==='estimated'?'triangle-alert':'shield-check')}<span>${e(source.label)}</span>${icon('chevron-down')}</summary><p>${e(source.detail)}</p>${branch.nota_ubicacion && branch.nota_ubicacion!==source.detail?`<p>${e(branch.nota_ubicacion)}</p>`:''}<p class="record-location">Ubicación registrada: ${e([branch.distrito,branch.municipio,branch.departamento].filter(Boolean).join(' · '))}</p></details>
     <div class="branch-actions">${point?`<button class="button button-primary" type="button" data-locate="${index}">${icon('locate-fixed')}Ver en el mapa</button>`:''}${phone?`<a class="button button-secondary" href="${phone}" aria-label="Llamar a ${e(readableName(branch.nombre))}">${icon('phone')}Llamar</a>`:''}${!point&&!phone?'<span class="unavailable-actions">Ubicación y teléfono no disponibles</span>':''}</div>
   </article>`;
 }

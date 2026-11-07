@@ -7,7 +7,8 @@ test('la farmacia de la captura muestra departamento, municipio y distrito propi
   assert.deepEqual(branchTerritory(TERRITORIES,BRANCHES.find(b=>b.codigo==='E10F1245')),{department:'Usulután',municipality:'Usulután Este',district:'Usulután'});
 });
 test('el municipio se obtiene del catálogo territorial incluso si el registro contiene otro',()=>{
-  assert.deepEqual(branchTerritory(TERRITORIES,BRANCHES.find(b=>b.codigo==='E10F1993'&&b.distrito==='Santa Tecla')),{department:'La Libertad',municipality:'La Libertad Sur',district:'Santa Tecla'});
+  const branch={departamento:'La Libertad',municipio:'La Libertad Este',distrito:'Santa Tecla'};
+  assert.deepEqual(branchTerritory(TERRITORIES,branch),{department:'La Libertad',municipality:'La Libertad Sur',district:'Santa Tecla'});
 });
 test('los distritos homónimos se resuelven dentro de su departamento',()=>{
   assert.equal(branchTerritory(TERRITORIES,{departamento:'Morazán',distrito:'San Fernando'}).municipality,'Morazán Norte');
