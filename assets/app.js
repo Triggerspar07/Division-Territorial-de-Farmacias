@@ -1,7 +1,7 @@
 import { TERRITORIES,BRANCHES } from './data.js?v=atlas-rollout-20261106';
 import { selectBranches,searchIndex,searchEntries,normalize,readableName,escapeHtml as e,coordinates,statusName,branchTerritory } from './model.js?v=atlas-rollout-20261106';
 import { branchCard,icon,selectedBranchActions } from './cards.js?v=atlas-rollout-20261106';
-import { createBranchMap } from './map.js';
+import { createBranchMap } from './map.js?v=glass-20261115';
 
 const $=id=>document.getElementById(id);
 const departments=TERRITORIES.flatMap(z=>z.departamentos.map(d=>({...d,zone:z.zona})));
@@ -9,7 +9,7 @@ const branchIds=new Map(BRANCHES.map((row,index)=>[row,index]));
 const index=searchIndex(TERRITORIES,BRANCHES);
 const state={department:'',municipality:'',district:'',chain:'',status:'',service:'',limit:12,selected:null};
 let results=[],searchResults=[],activeSearch=-1;
-let themeTimer;
+let moveDepartmentIndicator;
 let renderedDepartment=null;
 const map=createBranchMap($('branchMap'),(id,options)=>selectBranch(id,{...options,scrollMap:false}));
 const reduceMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -32,7 +32,7 @@ function renderNavigation(){
     return;
   }
   const count=department=>selectBranches(BRANCHES,{department}).length;
-  $('departmentNav').innerHTML=`<button type="button" class="department-button all-departments" data-department="" aria-current="${!state.department}"><span>${icon('globe2')} Todo El Salvador</span><span class="dept-count">${BRANCHES.length}</span></button>`+TERRITORIES.map(zone=>`<div class="zone-group"><h2 class="zone-title">${e(zone.zona)}</h2>${zone.departamentos.map(dept=>`<button type="button" class="department-button" data-department="${e(dept.nombre)}" aria-current="${state.department===dept.nombre}"><span>${e(dept.nombre)}</span><span class="dept-count">${count(dept.nombre)}</span></button>`).join('')}</div>`).join('');
+  $('departmentNav').innerHTML=`<button type="button" class="department-button glass-press all-departments" data-department="" aria-current="${!state.department}"><span>${icon('globe2')} Todo El Salvador</span><span class="dept-count">${BRANCHES.length}</span></button>`+TERRITORIES.map(zone=>`<div class="zone-group"><h2 class="zone-title">${e(zone.zona)}</h2>${zone.departamentos.map(dept=>`<button type="button" class="department-button glass-press" data-department="${e(dept.nombre)}" aria-current="${state.department===dept.nombre}"><span>${e(dept.nombre)}</span><span class="dept-count">${count(dept.nombre)}</span></button>`).join('')}</div>`).join('');
   $('departmentSelect').innerHTML=option('','Todo El Salvador')+departments.map(d=>option(d.nombre,d.nombre)).join('');
   $('departmentSelect').value=state.department;
 }
@@ -120,7 +120,7 @@ function emptyState(){
 }
 
 function render(){
-  renderNavigation();renderTerritory();renderFilters();
+  renderNavigation();moveDepartmentIndicator?.();renderTerritory();renderFilters();
   updateResults();
 }
 
@@ -177,7 +177,7 @@ function closeSearch(){
 }
 
 function chooseSearch(entry,event){
-  closeSearch();$('globalSearchInput').value=readableName(entry.label);
+  openGlobalSearch(false);$('globalSearchInput').value=readableName(entry.label);
   if(entry.kind==='branch') {
     const branch=entry.branch;
     const department=departments.find(d=>normalize(d.nombre)===normalize(branch.departamento));
@@ -185,7 +185,7 @@ function chooseSearch(entry,event){
     setTerritory({department:department?.nombre||'',municipality:municipality?.nombre||'',district:municipality?.distritos.find(d=>normalize(d)===normalize(branch.distrito))||''},event);
     selectBranch(entry.branchIndex,{showCard:true,scrollMap:false,event});
   } else setTerritory({department:entry.department,municipality:entry.municipality,district:entry.district},event);
-  if(entry.kind!=='branch') { $('pageTitle').scrollIntoView({behavior:'instant',block:'nearest'});$('districtSelect').focus({preventScroll:true}); }
+  if(entry.kind!=='branch') { $('pageTitle').tabIndex=-1;$('pageTitle').scrollIntoView({behavior:'instant',block:'nearest'});($('districtSelect').disabled ? $('pageTitle') : $('districtSelect')).focus({preventScroll:true}); }
 }
 
 function renderSearch(){
@@ -193,7 +193,7 @@ function renderSearch(){
   searchResults=searchEntries(index,query);activeSearch=-1;
   if(!query.trim()){closeSearch();return;}
   const typeLabels={department:'Departamento',municipality:'Municipio',district:'Distrito',branch:'Farmacia'};
-  $('globalSearchResults').innerHTML=searchResults.length?searchResults.map((entry,n)=>`<button id="search-option-${n}" type="button" class="search-result" role="option" aria-selected="false" data-search-result="${n}">${icon(entry.kind==='branch'?'building2':'map-pin')}<span><strong>${e(readableName(entry.label))}</strong><small>${e(readableName(entry.sub))}</small></span><span class="result-kind">${typeLabels[entry.kind]}</span></button>`).join(''):'<p class="search-empty" role="status">Sin resultados. Prueba con otro nombre, código o dirección.</p>';
+  $('globalSearchResults').innerHTML=searchResults.length?searchResults.map((entry,n)=>`<button id="search-option-${n}" type="button" class="search-result" role="option" tabindex="-1" aria-selected="false" data-search-result="${n}">${icon(entry.kind==='branch'?'building2':'map-pin')}<span><strong>${e(readableName(entry.label))}</strong><small>${e(readableName(entry.sub))}</small></span><span class="result-kind">${typeLabels[entry.kind]}</span></button>`).join(''):'<p class="search-empty" role="status">Sin resultados. Prueba con otro nombre, código o dirección.</p>';
   $('globalSearchResults').hidden=false;$('globalSearchInput').setAttribute('aria-expanded','true');
 }
 
@@ -201,15 +201,6 @@ function updateSearchSelection(){
   $('globalSearchResults').querySelectorAll('[data-search-result]').forEach((button,n)=>button.setAttribute('aria-selected',String(n===activeSearch)));
   const target=$('search-option-'+activeSearch);
   if(target){$('globalSearchInput').setAttribute('aria-activedescendant',target.id);target.scrollIntoView({block:'nearest',behavior:'instant'});}
-}
-
-function setTheme(theme,event){
-  clearTimeout(themeTimer);document.documentElement.classList.add('theme-transition');document.documentElement.dataset.theme=theme;
-  try{localStorage.setItem('farmacias-theme',theme);}catch{}
-  const dark=theme==='dark',action=dark?'Activar Atlas, modo claro':'Activar Nyx, modo oscuro';$('themeToggle').setAttribute('aria-pressed',String(dark));$('themeToggle').setAttribute('aria-label',action);$('themeToggle').title=action;$('themeLabel').textContent=dark?'Atlas — modo claro':'Nyx — modo oscuro';
-  map.refreshTheme();
-  themeTimer=setTimeout(()=>document.documentElement.classList.remove('theme-transition'),300);
-  if(event)announce(dark?'Nyx, modo oscuro, activado':'Atlas, modo claro, activado');
 }
 
 $('departmentNav').addEventListener('click',event=>{const button=event.target.closest('[data-department]');if(button)setTerritory({department:button.dataset.department},event);});
@@ -233,11 +224,18 @@ $('loadMore').addEventListener('click',()=>{
   if(next){const target=$('branch-'+branchIds.get(next));target?.querySelector('button,a')?.focus({preventScroll:true});target?.scrollIntoView({behavior:'instant',block:'nearest'});}
 });
 $('fitMap').addEventListener('click',()=>map.fit());
-$('themeToggle').addEventListener('click',event=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark',event));
+GlassControls.theme($('themeToggle'), {
+  key:'farmacias-theme', light:'Atlas — modo claro', dark:'Nyx — modo oscuro',
+  colors:{light:'#14365a',dark:'#112331'},
+  onChange(theme, announceChange){
+    map.refreshTheme();
+    if(announceChange) announce(theme==='dark'?'Nyx, modo oscuro, activado':'Atlas, modo claro, activado');
+  }
+});
+const openGlobalSearch=GlassControls.disclosure($('searchAnchor'),$('searchToggle'),$('globalSearch'),$('globalSearchInput'),closeSearch);
 $('globalSearchInput').addEventListener('input',renderSearch);
 $('globalSearchInput').addEventListener('focus',()=>{if($('globalSearchInput').value)renderSearch();});
 $('globalSearchInput').addEventListener('keydown',event=>{
-  if(event.key==='Escape'){closeSearch();return;}
   if(['ArrowDown','ArrowUp'].includes(event.key)){
     event.preventDefault();if($('globalSearchResults').hidden)renderSearch();
     if(!searchResults.length)return;
@@ -246,8 +244,8 @@ $('globalSearchInput').addEventListener('keydown',event=>{
   if(event.key==='Enter'&&!$('globalSearchResults').hidden&&searchResults.length){event.preventDefault();chooseSearch(searchResults[Math.max(activeSearch,0)],event);}
 });
 $('globalSearchResults').addEventListener('click',event=>{const button=event.target.closest('[data-search-result]');if(button)chooseSearch(searchResults[Number(button.dataset.searchResult)],event);});
-$('globalSearch').addEventListener('focusout',event=>{if(!event.currentTarget.contains(event.relatedTarget))closeSearch();});
-document.addEventListener('click',event=>{if(!$('globalSearch').contains(event.target))closeSearch();});
+GlassControls.intensity($('glassIntensity'));
+GlassControls.disclosure($('appearanceAnchor'),$('appearanceToggle'),$('appearanceSettings'),$('glassIntensity'));
 
-setTheme(document.documentElement.dataset.theme);
 render();
+moveDepartmentIndicator=GlassControls.indicator($('departmentNav'),'[aria-current=true]');

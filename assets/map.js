@@ -26,8 +26,7 @@ export function createBranchMap(container,onSelect) {
     const style=getComputedStyle(document.documentElement);
     return {active:style.getPropertyValue('--map-active').trim(),inactive:style.getPropertyValue('--map-inactive').trim(),border:style.getPropertyValue('--surface').trim()};
   };
-  function styleMarker(marker,entry,chosen=false){
-    const palette=colors();
+  function styleMarker(marker,entry,chosen=false,palette=colors()){
     marker.setStyle({radius:chosen?9:5,color:palette.border,weight:chosen?3:1.8,fillColor:normalize(entry.branch.estatus)==='activo'?palette.active:palette.inactive,fillOpacity:chosen?1:.88});
   }
   function fit(){
@@ -39,11 +38,12 @@ export function createBranchMap(container,onSelect) {
     lastEntries=entries;
     selected=null;
     group.clearLayers();markers.clear();
+    const palette=colors();
     for(const entry of entries){
       const point=coordinates(entry.branch);
       if(!point) continue;
       const marker=L.circleMarker(point).addTo(group);
-      styleMarker(marker,entry);
+      styleMarker(marker,entry,false,palette);
       marker.bindTooltip(e(readableName(entry.branch.nombre)),{direction:'top',offset:[0,-7]});
       const content=document.createElement('div');
       content.innerHTML=`<strong>${e(readableName(entry.branch.nombre))}</strong><small>${e(entry.branch.codigo||'Sin código')} · ${e(entry.branch.distrito||'Sin distrito')}</small>`;
@@ -64,8 +64,8 @@ export function createBranchMap(container,onSelect) {
     if(openPopup) item.marker.openPopup();
   }
   function refreshTheme(){
-    for(const {marker,entry} of markers.values()) styleMarker(marker,entry,entry.index===selected);
-    map.invalidateSize({animate:false});
+    const palette=colors();
+    for(const {marker,entry} of markers.values()) styleMarker(marker,entry,entry.index===selected,palette);
   }
   new ResizeObserver(()=>map.invalidateSize({animate:false,pan:false})).observe(container);
   map.fitBounds(NATIONAL_BOUNDS,{padding:[10,10],animate:false});
