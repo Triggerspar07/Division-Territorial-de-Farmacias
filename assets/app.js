@@ -1,7 +1,7 @@
-import { TERRITORIES,BRANCHES } from './data.js?v=atlas-rollout-20261106';
-import { selectBranches,searchIndex,searchEntries,normalize,readableName,escapeHtml as e,coordinates,statusName,branchTerritory } from './model.js?v=atlas-rollout-20261106';
-import { branchCard,icon,selectedBranchActions } from './cards.js?v=atlas-rollout-20261106';
-import { createBranchMap } from './map.js?v=glass-20261115';
+import { TERRITORIES,BRANCHES } from './data.js?v=rollout-20261125';
+import { selectBranches,searchIndex,searchEntries,normalize,readableName,escapeHtml as e,coordinates,statusName,branchTerritory } from './model.js?v=rollout-20261125';
+import { branchCard,icon,selectedBranchActions } from './cards.js?v=rollout-20261125';
+import { createBranchMap } from './map.js?v=rollout-20261125';
 
 const $=id=>document.getElementById(id);
 const departments=TERRITORIES.flatMap(z=>z.departamentos.map(d=>({...d,zone:z.zona})));
@@ -128,7 +128,8 @@ function updateResults(){
   results=selectBranches(BRANCHES,{...scopeFilters(),chain:state.chain,status:state.status,service:state.service}).sort((a,b)=>a.cadena.localeCompare(b.cadena,'es')||a.nombre.localeCompare(b.nombre,'es'));
   state.selected=null;$('selectedBranch').hidden=true;renderTerritoryContext();
   const active=results.filter(row=>normalize(row.estatus)==='activo').length;
-  $('resultSummary').textContent=`${formatCount(results.length,'sucursal','sucursales')} · ${formatCount(active,'activa','activas')} · ${results.length-active} inactivas o temporales`;
+  const countState=status=>results.filter(row=>normalize(row.estatus)===status).length;
+  $('resultSummary').textContent=`${formatCount(results.length,'sucursal','sucursales')} · ${formatCount(active,'activa','activas')} · ${countState('inactivo')} inactivas · ${countState('inactivo temporal')} temporales · ${countState('retirado')} retiradas`;
   renderCards();
   const located=results.filter(row=>coordinates(row));
   $('mappedCount').textContent=`${located.length} en mapa`;

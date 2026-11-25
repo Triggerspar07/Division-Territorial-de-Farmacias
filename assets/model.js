@@ -66,13 +66,14 @@ export function readableName(value) {
 
 export function statusName(value) {
   const key=normalize(value);
-  return ({activo:'Activo',inactivo:'Inactivo','inactivo temporal':'Inactivo temporal'})[key] || readableName(value);
+  return ({activo:'Activo',inactivo:'Inactivo','inactivo temporal':'Inactivo temporal',retirado:'Retirado'})[key] || readableName(value);
 }
 
 export function sourceInfo(branch) {
   const source=branch.fuente;
+  if(source==='referencia_rollout') return {tone:'estimated',label:'REFERENCIA DEL ROLL OUT · PENDIENTE DE VALIDAR',detail:branch.nota_ubicacion||'Confirmar el pin y la entrada de esta sucursal con el proveedor.'};
   if(source==='pendiente_verificacion') return {tone:'estimated',label:'Ubicación pendiente de verificar',detail:branch.nota_ubicacion};
-  if(source==='roll_out') return {tone:'recorded',label:'Coordenadas del Roll Out',detail:'Punto de referencia del Roll Out del 6 de noviembre de 2026.'};
+  if(source==='roll_out') return {tone:'recorded',label:'Coordenadas del Roll Out',detail:'Ubicación registrada en DoctorSV, conciliada con el Roll Out el '+(branch.fecha_fuente||'fecha no informada')+'. Conserva la evidencia histórica; no acredita una visita física.'};
   if(source==='estimado_ia') {
     const confidence=({alta:'Confianza alta',media:'Verificar ubicación',estimado_referencia:'Por referencia'})[branch.confianza_estimado]||'Sin confianza indicada';
     return {tone:'estimated',label:'Ubicación estimada',detail:confidence+'. Estimación heredada; requiere confirmación.'};

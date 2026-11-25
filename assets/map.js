@@ -1,4 +1,4 @@
-import { coordinates,escapeHtml as e,normalize,readableName } from './model.js';
+import { coordinates,escapeHtml as e,normalize,readableName } from './model.js?v=rollout-20261125';
 
 const NATIONAL_BOUNDS=[[13.08,-90.15],[14.47,-87.68]];
 
@@ -27,7 +27,7 @@ export function createBranchMap(container,onSelect) {
     return {active:style.getPropertyValue('--map-active').trim(),inactive:style.getPropertyValue('--map-inactive').trim(),border:style.getPropertyValue('--surface').trim()};
   };
   function styleMarker(marker,entry,chosen=false,palette=colors()){
-    marker.setStyle({radius:chosen?9:5,color:palette.border,weight:chosen?3:1.8,fillColor:normalize(entry.branch.estatus)==='activo'?palette.active:palette.inactive,fillOpacity:chosen?1:.88});
+    marker.setStyle({radius:chosen?9:5,color:palette.border,weight:chosen?3:1.8,fillColor:normalize(entry.branch.estatus)==='activo'?palette.active:palette.inactive,dashArray:entry.branch.fuente==='referencia_rollout'?'3 3':null,fillOpacity:chosen?1:.88});
   }
   function fit(){
     const bounds=group.getBounds();
@@ -44,9 +44,9 @@ export function createBranchMap(container,onSelect) {
       if(!point) continue;
       const marker=L.circleMarker(point).addTo(group);
       styleMarker(marker,entry,false,palette);
-      marker.bindTooltip(e(readableName(entry.branch.nombre)),{direction:'top',offset:[0,-7]});
+      marker.bindTooltip(e((entry.branch.fuente==='referencia_rollout'?'REFERENCIA DEL ROLL OUT · ':'')+readableName(entry.branch.nombre)+' · '+readableName(entry.branch.estatus)),{direction:'top',offset:[0,-7]});
       const content=document.createElement('div');
-      content.innerHTML=`<strong>${e(readableName(entry.branch.nombre))}</strong><small>${e(entry.branch.codigo||'Sin código')} · ${e(entry.branch.distrito||'Sin distrito')}</small>`;
+      content.innerHTML=`<strong>${e((entry.branch.fuente==='referencia_rollout'?'REFERENCIA DEL ROLL OUT · ':'')+readableName(entry.branch.nombre)+' · '+readableName(entry.branch.estatus))}</strong><small>${e(entry.branch.codigo||'Sin código')} · ${e(entry.branch.distrito||'Sin distrito')}</small>`;
       const button=document.createElement('button');button.type='button';button.className='popup-action';button.textContent='Ver ficha completa';
       button.addEventListener('click',()=>onSelect(entry.index,{showCard:true}));content.append(button);
       marker.bindPopup(content,{maxWidth:255});

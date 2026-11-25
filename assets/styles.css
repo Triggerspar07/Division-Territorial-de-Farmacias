@@ -362,3 +362,5 @@ html.theme-transition { transition: background-color var(--palette-time) ease; }
   .brand-symbol { width: 31px; }
   .brand .brand-subtitle { font-size: 9px; }
 }
+
+.status-retired{color:#7d3866;background:#f5ddec}.location-source strong{font-weight:800}.location-source summary{flex-wrap:wrap}.location-source summary>span{font-weight:600}
