@@ -1,7 +1,7 @@
-import { TERRITORIES,BRANCHES } from './data.js?v=rollout-20261125';
-import { selectBranches,searchIndex,searchEntries,normalize,readableName,escapeHtml as e,coordinates,statusName,branchTerritory } from './model.js?v=rollout-20261125';
-import { branchCard,icon,selectedBranchActions } from './cards.js?v=rollout-20261125';
-import { createBranchMap } from './map.js?v=rollout-20261125';
+import { TERRITORIES,BRANCHES } from './data.js?v=rollout-20261125c';
+import { selectBranches,searchIndex,searchEntries,normalize,readableName,escapeHtml as e,coordinates,statusName,branchTerritory } from './model.js?v=rollout-20261125c';
+import { branchCard,icon,selectedBranchActions } from './cards.js?v=rollout-20261125c';
+import { createBranchMap } from './map.js?v=rollout-20261125c';
 
 const $=id=>document.getElementById(id);
 const departments=TERRITORIES.flatMap(z=>z.departamentos.map(d=>({...d,zone:z.zona})));

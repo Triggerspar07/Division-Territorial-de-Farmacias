@@ -1765,12 +1765,12 @@ export const BRANCHES = [
     "horario_lv": "09:00 AM A 08:00 PM",
     "horario_sab": "09:00 AM A 08:00 PM",
     "horario_dom": "CERRADO",
-    "lat": null,
-    "lon": null,
-    "fuente": "pendiente_verificacion",
+    "lat": 13.70128009,
+    "lon": -89.22838604,
+    "fuente": "referencia_rollout",
     "codigo": "E10F1519",
     "fecha_fuente": "2026-11-25",
-    "nota_ubicacion": "La hoja identifica Millenium Plaza y la SRS registra Centro Comercial Universitaria, local 1-A. Se requiere confirmar la sede de la ficha."
+    "nota_ubicacion": "ABANK identifica La Buena 53 en Millennium, segundo nivel; el directorio del propio proveedor B053 aún identifica Ciudad Universitaria. Se representa el punto de Millennium declarado por el roll out como referencia de esta ficha RETIRADA. Validar local MILC0216 e historial del código, sin confundirlo con una farmacia vigente."
   },
   {
     "cadena": "C.IMBERTON",
@@ -2340,12 +2340,12 @@ export const BRANCHES = [
     "horario_lv": "09:00 AM A 10:00 PM",
     "horario_sab": "09:00 AM A 10:00 PM",
     "horario_dom": "09:00 AM A 10:00 PM",
-    "lat": null,
-    "lon": null,
-    "fuente": "pendiente_verificacion",
+    "lat": 13.45074234,
+    "lon": -88.16102562,
+    "fuente": "referencia_rollout",
     "codigo": "E10F10684",
     "fecha_fuente": "2026-11-25",
-    "nota_ubicacion": "Consulta del directorio propio 2026-11-04: B079 sigue ubicada en tercera calle poniente y sexta avenida norte, contiguo terminal de buses, en La Unión. El registro RETIRADO del archivo corresponde a Garden Mall San Miguel. La evidencia actual no demuestra la puerta histórica de Garden Mall ni si hubo traslado o reutilización del número; se conserva RETIRADO y ubicación pendiente, sin copiar el destino de La Unión."
+    "nota_ubicacion": "Se representa la coordenada histórica del roll out en Garden Mall para esta ficha RETIRADA. Validar el número de local y el historial del código: el directorio actual B079 corresponde a La Unión y no debe sustituir automáticamente a esta sede de San Miguel."
   },
   {
     "cadena": "C.IMBERTON",
@@ -3467,12 +3467,12 @@ export const BRANCHES = [
     "horario_lv": "07:00 AM A 05:00 PM",
     "horario_sab": "07:00 AM A 01:00 PM",
     "horario_dom": "CERRADO",
-    "lat": null,
-    "lon": null,
-    "fuente": "pendiente_verificacion",
+    "lat": 13.47939,
+    "lon": -88.18269,
+    "fuente": "referencia_rollout",
     "codigo": "E10F0993",
     "fecha_fuente": "2026-11-25",
-    "nota_ubicacion": "Directorio oficial consultado 2026-11-04: Santa María2 San Miguel está en novena avenida sur/primera calle poniente #513-A, tel2661-9554. Este código en el archivo conserva #108-B y tel26614625. No se acredita mismo local o traslado, por lo que la coordenada continúa pendiente y no se copia la de Santa María2."
+    "nota_ubicacion": "CNR registra Farmacia Santa María en 9a avenida sur 108-B, Barrio La Merced, igual al roll out. La cadena publica Santa María 2 con número 513-A y otro teléfono en el mismo sector. Validar renumeración, teléfono e identidad del código antes de usar esta referencia como puerta confirmada. Se conserva el punto declarado por la red."
   },
   {
     "cadena": "FARMACIAS CRISTAL",
@@ -6871,12 +6871,12 @@ export const BRANCHES = [
     "horario_lv": "8:00 a.m. a 8:00 p.m.",
     "horario_sab": "8:00 a.m. a 8:00 p.m.",
     "horario_dom": "8:00 a.m. a 8:00 p.m.",
-    "lat": null,
-    "lon": null,
-    "fuente": "pendiente_verificacion",
+    "lat": 13.901447,
+    "lon": -89.931528,
+    "fuente": "referencia_rollout",
     "codigo": "E10F80774",
     "fecha_fuente": "2026-11-25",
-    "nota_ubicacion": "No se obtuvo en la búsqueda actual una fuente propia que vincule teléfono2448-1711, códigoE10F80774 y avenida Cuscatlán sur entre San Juan/segunda calle poniente con una puerta concreta. La referencia cartográfica histórica de tercera avenida norte difiere unos350m y no acredita traslado. Se conserva pendiente; las farmacias homónimas o el distrito Tacuba completo no confirman el punto."
+    "nota_ubicacion": "Un comercio vecino identifica Farmacia La Esperanza en la salida a San Juan, Tacuba; respalda la localidad. El punto del roll out se muestra como referencia: validar la entrada en avenida Cuscatlán sur, entre calle San Juan y segunda calle poniente, y el teléfono 2448-1711. No se usa el pin de una farmacia homónima."
   },
   {
     "cadena": "FARMACIA LA ESPERANZA",
@@ -9976,12 +9976,12 @@ export const BRANCHES = [
     "horario_lv": "07:45 AM A 10:00 PM",
     "horario_sab": "07:45 AM A 10:00 PM",
     "horario_dom": "09:00 AM A 08:00 PM",
-    "lat": null,
-    "lon": null,
-    "fuente": "pendiente_verificacion",
+    "lat": 13.6561,
+    "lon": -89.2789,
+    "fuente": "referencia_rollout",
     "codigo": "E10F2991",
     "fecha_fuente": "2026-11-25",
-    "nota_ubicacion": "Consulta oficial 2026-11-04: San Nicolás La Joya publica local49; el registro RETIRADO del archivo es local6. No hay evidencia histórica de la puerta del local6. Se mantiene pendiente y RETIRADO; el pin de local49 no confirma el establecimiento anterior."
+    "nota_ubicacion": "El directorio del proveedor y Waze sitúan San Nicolás La Joya en el mismo centro comercial, pero el local vigente es 49 y esta ficha RETIRADA declara local 6. Se representa el inmueble declarado en la hoja como referencia histórica; validar el local anterior y su puerta, sin afirmar que la ficha retirada corresponde a la farmacia vigente."
   },
   {
     "cadena": "FARMACIAS SAN NICOLAS",
@@ -10631,9 +10631,9 @@ export const BRANCHES = [
     "cadena": "FARMACIAS CRISTAL",
     "nombre": "FARMACIAS CRISTAL 20",
     "direccion": "Primera Calle Poniente y Segunda Avenida sur",
-    "municipio": "USULUTAN NORTE",
-    "departamento": "USULUTAN",
-    "distrito": "USULUTAN",
+    "municipio": "USULUTÁN NORTE",
+    "departamento": "USULUTÁN",
+    "distrito": "EL TRIUNFO",
     "estatus": "ACTIVO",
     "telefono": "7759-9260",
     "abierto24": false,
@@ -10643,12 +10643,12 @@ export const BRANCHES = [
     "horario_lv": "07:00 AM A 05:00 PM",
     "horario_sab": "07:00 AM A 01:00 PM",
     "horario_dom": "07:00 AM A 12:00 MD",
-    "lat": null,
-    "lon": null,
-    "fuente": "pendiente_verificacion",
+    "lat": 13.559528,
+    "lon": -88.431611,
+    "fuente": "referencia_rollout",
     "codigo": "E10F3381",
     "fecha_fuente": "2026-11-25",
-    "nota_ubicacion": "Directorio oficial consultado 2026-11-04: Cristal20 está en avenida Gustavo Guerrero y segunda calle poniente #64, barrio La Cruz, Corinto, Morazán, tel2658-1472. El archivo identifica primera calle poniente y segunda avenida sur, Usulután, tel7759-9260. No hay vínculo público que confirme traslado ni la puerta de E10F3381; se conserva pendiente y no se mueve a Corinto."
+    "nota_ubicacion": "Aeroflash identifica Farmacia Cristal 20 en El Triunfo y publica 77599260, el mismo teléfono del roll out. Esto resuelve la confusión con Cristal 20 Corinto, que tiene otro teléfono. Se corrige distrito a El Triunfo, municipio Usulután Norte, conservando el punto de la hoja en esa localidad como referencia. Validar la esquina/local exacto: las direcciones usan distinta orientación de la segunda avenida."
   },
   {
     "cadena": "FARMACIAS CRISTAL",
